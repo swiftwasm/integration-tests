@@ -7,7 +7,9 @@ let testCasesPath = URL(fileURLWithPath: #filePath)
     .appendingPathComponent("TestCases")
 
 public func main() throws {
-    let toolchains = downloadToolchains()
+    guard let toolchain = ProcessInfo.processInfo.environment["TOOLCHAIN"] else {
+        fatalError("Please set TOOLCHAIN environment variable")
+    }
     let testCases = try FileManager.default.contentsOfDirectory(atPath: testCasesPath.path)
     
     for testCase in testCases {
@@ -17,24 +19,22 @@ public func main() throws {
             continue
         }
         print("Run", testScript)
-        for (_, toolchain) in toolchains {
-            runTest(testScript: testScript, toolchain: toolchain)
-        }
+        runTest(testScript: testScript, toolchain: toolchain)
     }
 }
 
-func runTest(testScript: URL, toolchain: URL) {
+func runTest(testScript: URL, toolchain: String) {
     print("Running \(testScript)")
     let process = Process()
     var environment = ProcessInfo.processInfo.environment
-    environment["TOOLCHAIN"] = toolchain.path
+    environment["TOOLCHAIN"] = toolchain
     process.launchPath = testScript.path
     process.environment = environment
     process.launch()
     process.waitUntilExit()
     guard process.terminationStatus == 0 else {
         fatalError("""
-        Test failed: TOOLCHAIN=\(toolchain.path) \(testScript.path)
+        Test failed: TOOLCHAIN=\(toolchain) \(testScript.path)
         """)
     }
 }
