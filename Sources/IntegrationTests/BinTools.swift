@@ -1,6 +1,10 @@
 import Foundation
 
 func installTool(_ name: String, destination: String) {
+    let toolPath = binPath.appendingPathComponent(name)
+    guard !FileManager.default.fileExists(atPath: toolPath.path) else {
+        return
+    }
     let scripts = URL(fileURLWithPath: #filePath)
         .deletingLastPathComponent()
         .deletingLastPathComponent()
@@ -21,9 +25,6 @@ let binPath = URL(fileURLWithPath: #filePath)
     .appendingPathComponent("bin")
 
 func installTools() {
-    guard !FileManager.default.fileExists(atPath: binPath.path) else {
-        return
-    }
     installTool("wasmer", destination: binPath.path)
     installTool("wasmtime", destination: binPath.path)
 }

@@ -20,13 +20,12 @@ public func main() throws {
         guard FileManager.default.fileExists(atPath: testScript.path) else {
             continue
         }
-        print("Run", testScript)
         runTest(testScript: testScript, toolchain: toolchain)
     }
 }
 
 func runTest(testScript: URL, toolchain: String) {
-    print("Running \(testScript)")
+    print("Running: \(testScript.path)")
     let process = Process()
     var environment = ProcessInfo.processInfo.environment
     environment["TOOLCHAIN"] = toolchain
