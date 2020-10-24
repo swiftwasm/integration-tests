@@ -37,7 +37,7 @@ func runTest(testScript: URL, toolchain: String) {
     process.waitUntilExit()
     guard process.terminationStatus == 0 else {
         fatalError("""
-        Test failed: TOOLCHAIN=\(toolchain) \(testScript.path)
+        Test failed: TOOLCHAIN=\(toolchain) PATH=\(binPath.path):$PATH \(testScript.path)
         """)
     }
 }

@@ -21,6 +21,9 @@ let binPath = URL(fileURLWithPath: #filePath)
     .appendingPathComponent("bin")
 
 func installTools() {
+    guard !FileManager.default.fileExists(atPath: binPath.path) else {
+        return
+    }
     installTool("wasmer", destination: binPath.path)
     installTool("wasmtime", destination: binPath.path)
 }
