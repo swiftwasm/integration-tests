@@ -1,3 +1,9 @@
-# IntegrationTests
+# SwiftWasm Integration Tests
 
-A description of this package.
+Integration test cases for SwiftWasm toolchain
+
+## Usage
+
+```
+swift run
+```
