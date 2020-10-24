@@ -10,6 +10,8 @@ public func main() throws {
     guard let toolchain = ProcessInfo.processInfo.environment["TOOLCHAIN"] else {
         fatalError("Please set TOOLCHAIN environment variable")
     }
+
+    installTools()
     let testCases = try FileManager.default.contentsOfDirectory(atPath: testCasesPath.path)
     
     for testCase in testCases {
@@ -28,6 +30,7 @@ func runTest(testScript: URL, toolchain: String) {
     let process = Process()
     var environment = ProcessInfo.processInfo.environment
     environment["TOOLCHAIN"] = toolchain
+    environment["PATH"] = "\(binPath.path):" + (environment["PATH"] ?? "")
     process.launchPath = testScript.path
     process.environment = environment
     process.launch()
