@@ -30,6 +30,7 @@ func runTest(testScript: URL, toolchain: String) {
     var environment = ProcessInfo.processInfo.environment
     environment["TOOLCHAIN"] = toolchain
     environment["PATH"] = "\(binPath.path):" + (environment["PATH"] ?? "")
+    environment["SDKROOT"] = nil
     process.launchPath = testScript.path
     process.environment = environment
     process.launch()
