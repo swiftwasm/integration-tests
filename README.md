@@ -5,5 +5,5 @@ Integration test cases for SwiftWasm toolchain
 ## Usage
 
 ```
-TOOLCHAIN=/Library/Developer/Toolchains/swift-wasm-DEVELOPMENT-SNAPSHOT-2020-10-22-a.xctoolchain swift run
+TOOLCHAIN=/Library/Developer/Toolchains/swift-wasm-5.3.0-RELEASE.xctoolchain/ swift run
 ```
