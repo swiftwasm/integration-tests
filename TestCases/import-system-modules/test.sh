@@ -8,5 +8,6 @@ work_dir="$(mktemp -d)"
   $TOOLCHAIN/usr/bin/swiftc -target wasm32-wasi $source_path/main.swift -static-stdlib -o main.wasm && \
   $TOOLCHAIN/usr/bin/swiftc -target wasm32-wasi $source_path/main.swift -o main.wasm && \
   wasmer run main.wasm && \
-  wasmtime run main.wasm
+  # FIXME: enable wasmtime test after it supports Apple Silicon
+  if [ $(uname -m) != "arm64" ]; then wasmtime run main.wasm; fi
 )
