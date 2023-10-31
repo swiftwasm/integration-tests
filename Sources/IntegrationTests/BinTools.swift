@@ -25,6 +25,5 @@ let binPath = URL(fileURLWithPath: #filePath)
     .appendingPathComponent("bin")
 
 func installTools() {
-    installTool("wasmer", destination: binPath.path)
     installTool("wasmtime", destination: binPath.path)
 }
